@@ -86,7 +86,7 @@ public class BridgeTechSupportController: NSResponder {
                 return URL(string:"https://twitter.com/MarkBridgesApps")!
                 
             case .developerAppStore:
-                return URL(string:"macappstore://itunes.apple.com/developer/bridgetechsolutionslimited/id497840921?mt=8#")!
+                return URL(string:"macappstore://itunes.apple.com/us/developer/bridgetechsolutionslimited/id497840921?mt=8#")!
                 
             case .writeReview(let appStoreID):
                 return URL(string:"macappstore://itunes.apple.com/app/id\(appStoreID)?action=write-review")!
