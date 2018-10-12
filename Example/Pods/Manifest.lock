@@ -1,0 +1,16 @@
+PODS:
+  - BridgeTechSupport (0.1.0)
+
+DEPENDENCIES:
+  - BridgeTechSupport (from `../`)
+
+EXTERNAL SOURCES:
+  BridgeTechSupport:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BridgeTechSupport: b599d1db02bdf6f09c55739da989df2d390f0ad4
+
+PODFILE CHECKSUM: 3b8e03095b78e458a070eed3e44b8ddf73194170
+
+COCOAPODS: 1.5.3
