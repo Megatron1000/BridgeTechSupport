@@ -4,9 +4,8 @@ Pod::Spec.new do |s|
   s.version          = '0.1.0'
   s.summary          = 'Adds an amazing support menu bar to your app\'s menu. Really useful for all developers with any kind of app. 😉'
 
-  s.description      = <<-DESC
-  Prompts for users to sign up to your mailing list, using the MailGun API.
-                       DESC
+  s.description      = 'Use this pod to see an example of how you might add an NSMenu to a menu bar and some useful links that will invoke the review prompt or the developer bage for your app.'
+  
 
   s.homepage         = 'https://github.com/megatron1000/BridgeTechSupport'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }

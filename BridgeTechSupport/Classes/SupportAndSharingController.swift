@@ -43,7 +43,7 @@ public class BridgeTechSupportController: NSResponder {
         
         var title: String {
             switch self {
-
+                
             case .openCompanyWebsite:
                 return "Open Support Website"
                 
@@ -60,14 +60,42 @@ public class BridgeTechSupportController: NSResponder {
                 return "Write a Review"
                 
             }
-        
+            
         }
         
         public var description: String {
             return title
         }
-
+        
+    }
     
+    private enum Link {
+        case companyWebsite
+        case twitterProfile
+        case developerAppStore
+        case writeReview(appStoreID: String)
+        case appListing(appStoreID: String)
+        
+        var url: URL {
+            switch self {
+                
+            case .companyWebsite:
+                return URL(string:"http://www.bridgetech.io")!
+                
+            case .twitterProfile:
+                return URL(string:"https://twitter.com/MarkBridgesApps")!
+                
+            case .developerAppStore:
+                return URL(string:"macappstore://itunes.apple.com/developer/bridgetechsolutionslimited/id497840921?mt=8#")!
+                
+            case .writeReview(let appStoreID):
+                return URL(string:"macappstore://itunes.apple.com/app/id\(appStoreID)?action=write-review")!
+                
+            case .appListing(let appStoreID):
+                return URL(string:"macappstore://itunes.apple.com/app/id\(appStoreID)?ls=1&mt=12")!
+            }
+            
+        }
     }
     
     let appStoreID: String
@@ -82,7 +110,7 @@ public class BridgeTechSupportController: NSResponder {
         super.init()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -129,10 +157,10 @@ public class BridgeTechSupportController: NSResponder {
         }
         
         switch action {
-
+            
         case .openCompanyWebsite:
-            NSWorkspace.shared.open(URL(string:"http://www.bridgetech.io")!)
-
+            NSWorkspace.shared.open(Link.companyWebsite.url)
+            
         case .emailSupport:
             let service = NSSharingService(named: .composeEmail)
             service?.recipients = ["support@bridgetech.io"]
@@ -140,17 +168,17 @@ public class BridgeTechSupportController: NSResponder {
             service?.perform(withItems: ["Hi"])
             
         case .openTwitter:
-            NSWorkspace.shared.open(URL(string:"https://twitter.com/MarkBridgesApps")!)
-
+            NSWorkspace.shared.open(Link.twitterProfile.url)
+            
         case .openDeveloperOnMacAppStore:
-            NSWorkspace.shared.open(URL(string:"macappstore://itunes.apple.com/developer/bridgetechsolutionslimited/id\(appStoreID)?mt=8#")!)
+            NSWorkspace.shared.open(Link.developerAppStore.url)
             
         case .writeAReview:
             if #available(iOS 10.14, *) {
-                NSWorkspace.shared.open(URL(string:"macappstore://itunes.apple.com/app/id\(appStoreID)?action=write-review")!)
+                NSWorkspace.shared.open(Link.writeReview(appStoreID: appStoreID).url)
             } else {
                 // Best we can do is go to the App Store listing page on earlier versions
-                NSWorkspace.shared.open(URL(string:"macappstore://itunes.apple.com/app/id\(appStoreID)?ls=1&mt=12")!)
+                NSWorkspace.shared.open(Link.appListing(appStoreID: appStoreID).url)
             }
         }
         
