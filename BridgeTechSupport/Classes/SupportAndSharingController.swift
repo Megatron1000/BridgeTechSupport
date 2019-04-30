@@ -162,10 +162,24 @@ public class BridgeTechSupportController: NSResponder {
             NSWorkspace.shared.open(Link.companyWebsite.url)
             
         case .emailSupport:
-            let service = NSSharingService(named: .composeEmail)
-            service?.recipients = ["support@bridgetech.io"]
-            service?.subject = "\(appName) - Help, Support & Feedback"
-            service?.perform(withItems: ["Hi"])
+            
+            func presentFallBackAlert() {
+                let alert = NSAlert()
+                alert.messageText = "Unable To Launch Mail Client"
+                alert.informativeText = "Please contact support on support@bridgetech.io"
+                alert.runModal()
+            }
+            guard let service = NSSharingService(named: .composeEmail) else {
+                presentFallBackAlert()
+                return
+            }
+            service.recipients = ["support@bridgetech.io"]
+            service.subject = "\(appName) - Help, Support & Feedback"
+            if service.canPerform(withItems: ["Hi"]) {
+                service.perform(withItems: ["Hi"])
+            } else {
+                presentFallBackAlert()
+            }
             
         case .openTwitter:
             NSWorkspace.shared.open(Link.twitterProfile.url)
