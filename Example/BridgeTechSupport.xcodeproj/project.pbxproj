@@ -244,7 +244,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BridgeTechSupport_Example/Pods-BridgeTechSupport_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BridgeTechSupport_Example/Pods-BridgeTechSupport_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BridgeTechSupport/BridgeTechSupport.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -253,7 +253,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BridgeTechSupport_Example/Pods-BridgeTechSupport_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BridgeTechSupport_Example/Pods-BridgeTechSupport_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2A0623F0A80AB99D1ABFFD78 /* [CP] Check Pods Manifest.lock */ = {
