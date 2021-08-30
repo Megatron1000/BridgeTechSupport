@@ -1,6 +1,0 @@
-framework module BridgeTechSupport {
-  umbrella header "BridgeTechSupport-umbrella.h"
-
-  export *
-  module * { export * }
-}

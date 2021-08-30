@@ -25,7 +25,7 @@ import AppKit
 
 // MARK: BridgeTechSupportControllerDelegate
 
-public protocol BridgeTechSupportControllerDelegate: class {
+public protocol BridgeTechSupportControllerDelegate: AnyObject {
     func bridgeTechSupportController(_ bridgeTechSupportController: BridgeTechSupportController,
                                      didPerformAction action: BridgeTechSupportController.Action)
 }
@@ -37,6 +37,7 @@ public class BridgeTechSupportController: NSResponder {
     public enum Action: Int, CustomStringConvertible {
         case openCompanyWebsite
         case emailSupport
+        case joinMailingList
         case openTwitter
         case openDeveloperOnMacAppStore
         case writeAReview
@@ -49,6 +50,9 @@ public class BridgeTechSupportController: NSResponder {
                 
             case .emailSupport:
                 return "Email Support"
+                
+            case .joinMailingList:
+                return "Join Mailing List"
                 
             case .openTwitter:
                 return "Open Twitter Profile"
@@ -71,6 +75,7 @@ public class BridgeTechSupportController: NSResponder {
     
     private enum Link {
         case companyWebsite
+        case mailingListWebsite
         case twitterProfile
         case developerAppStore
         case writeReview(appStoreID: String)
@@ -80,7 +85,10 @@ public class BridgeTechSupportController: NSResponder {
             switch self {
                 
             case .companyWebsite:
-                return URL(string:"http://www.bridgetech.io")!
+                return URL(string:"https://www.bridgetech.io")!
+                
+            case .mailingListWebsite:
+                return URL(string:"https://www.bridgetech.io/mailinglist.html")!
                 
             case .twitterProfile:
                 return URL(string:"https://twitter.com/MarkBridgesApps")!
@@ -136,6 +144,7 @@ public class BridgeTechSupportController: NSResponder {
         
         menu.addItem(makeMenuItem(forAction: .openCompanyWebsite))
         menu.addItem(makeMenuItem(forAction: .emailSupport))
+        menu.addItem(makeMenuItem(forAction: .joinMailingList))
         menu.addItem(NSMenuItem.separator())
         menu.addItem(makeMenuItem(forAction: .writeAReview))
         menu.addItem(NSMenuItem.separator())
@@ -189,6 +198,8 @@ public class BridgeTechSupportController: NSResponder {
                 // Best we can do is go to the App Store listing page on earlier versions
                 NSWorkspace.shared.open(Link.appListing(appStoreID: appStoreID).url)
             }
+        case .joinMailingList:
+            NSWorkspace.shared.open(Link.mailingListWebsite.url)
         }
         
         delegate?.bridgeTechSupportController(self, didPerformAction: action)
