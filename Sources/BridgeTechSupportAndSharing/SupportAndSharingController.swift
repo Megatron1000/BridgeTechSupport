@@ -41,6 +41,8 @@ public class BridgeTechSupportController: NSResponder {
         case openTwitter
         case openDeveloperOnMacAppStore
         case writeAReview
+        case privacyPolicy
+        case termsOfUse
         
         var title: String {
             switch self {
@@ -63,6 +65,12 @@ public class BridgeTechSupportController: NSResponder {
             case .writeAReview:
                 return "Write a Review"
                 
+            case .privacyPolicy:
+                return "Privacy Policy"
+                
+            case .termsOfUse:
+                return "Terms of Use"
+                
             }
             
         }
@@ -80,6 +88,8 @@ public class BridgeTechSupportController: NSResponder {
         case developerAppStore
         case writeReview(appStoreID: String)
         case appListing(appStoreID: String)
+        case terms
+        case privacyPolicy
         
         var url: URL {
             switch self {
@@ -101,6 +111,12 @@ public class BridgeTechSupportController: NSResponder {
                 
             case .appListing(let appStoreID):
                 return URL(string:"macappstore://itunes.apple.com/app/id\(appStoreID)?ls=1&mt=12")!
+                
+            case .terms:
+                return URL(string: "https://app.termly.io/document/terms-and-conditions/d7403a4e-b18c-492b-bd65-a17ed1545185")!
+                
+            case .privacyPolicy:
+                return URL(string: "https://www.bridgetech.io/PrivacyPolicy.html")!
             }
             
         }
@@ -150,6 +166,9 @@ public class BridgeTechSupportController: NSResponder {
         menu.addItem(NSMenuItem.separator())
         menu.addItem(makeMenuItem(forAction: .openTwitter))
         menu.addItem(makeMenuItem(forAction: .openDeveloperOnMacAppStore))
+        menu.addItem(NSMenuItem.separator())
+        menu.addItem(makeMenuItem(forAction: .privacyPolicy))
+        menu.addItem(makeMenuItem(forAction: .termsOfUse))
         
         application.mainMenu?.addItem(menuItem)
         application.nextResponder = self
@@ -200,6 +219,12 @@ public class BridgeTechSupportController: NSResponder {
             }
         case .joinMailingList:
             NSWorkspace.shared.open(Link.mailingListWebsite.url)
+            
+        case .privacyPolicy:
+            NSWorkspace.shared.open(Link.privacyPolicy.url)
+            
+        case .termsOfUse:
+            NSWorkspace.shared.open(Link.terms.url)
         }
         
         delegate?.bridgeTechSupportController(self, didPerformAction: action)
