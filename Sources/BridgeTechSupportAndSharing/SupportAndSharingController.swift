@@ -124,13 +124,15 @@ public class BridgeTechSupportController: NSResponder {
     
     let appStoreID: String
     let appName: String
+    let setAppSafe: Bool
     
     public weak var delegate: BridgeTechSupportControllerDelegate?
     
-    public init(appStoreID: String, appName: String, delegate: BridgeTechSupportControllerDelegate?) {
+    public init(appStoreID: String, appName: String, setAppSafe: Bool = false, delegate: BridgeTechSupportControllerDelegate?) {
         self.appStoreID = appStoreID
         self.appName = appName
         self.delegate = delegate
+        self.setAppSafe = setAppSafe
         super.init()
     }
     
@@ -160,13 +162,17 @@ public class BridgeTechSupportController: NSResponder {
         
         menu.addItem(makeMenuItem(forAction: .openCompanyWebsite))
         menu.addItem(makeMenuItem(forAction: .emailSupport))
-        menu.addItem(makeMenuItem(forAction: .joinMailingList))
+        if !setAppSafe {
+            menu.addItem(makeMenuItem(forAction: .joinMailingList))
+        }
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(makeMenuItem(forAction: .writeAReview))
-        menu.addItem(NSMenuItem.separator())
-        menu.addItem(makeMenuItem(forAction: .openTwitter))
-        menu.addItem(makeMenuItem(forAction: .openDeveloperOnMacAppStore))
-        menu.addItem(NSMenuItem.separator())
+        if !setAppSafe {
+            menu.addItem(makeMenuItem(forAction: .writeAReview))
+            menu.addItem(NSMenuItem.separator())
+            menu.addItem(makeMenuItem(forAction: .openTwitter))
+            menu.addItem(makeMenuItem(forAction: .openDeveloperOnMacAppStore))
+            menu.addItem(NSMenuItem.separator())
+        }
         menu.addItem(makeMenuItem(forAction: .privacyPolicy))
         menu.addItem(makeMenuItem(forAction: .termsOfUse))
         
